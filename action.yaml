@@ -6,8 +6,10 @@ runs:
   steps:
     - run: test.sh
       shell: bash
+      working-directory: ${{ github.action_path }}
     - name: test
       run: |
         ls -ltr
         env
       shell: bash
+      working-directory: ${{ github.action_path }}
