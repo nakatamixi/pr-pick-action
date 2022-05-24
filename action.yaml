@@ -4,14 +4,10 @@ description: 'test'
 runs:
   using: "composite"
   steps:
-    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
-      shell: bash
+    - name: setup go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '~1.18'
     - run: |
-        echo ${{ github.action_path }}
-        ${{ github.action_path }}/test.sh
-      shell: bash
-    - name: test
-      run: |
-        ls -ltr
-        env
+        cd ${{ github.action_path }} && go run main.go
       shell: bash
