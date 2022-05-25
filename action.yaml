@@ -46,7 +46,7 @@ runs:
         git config --local user.name "github-actions[bot]"
         workdir=`pwd`
         set -x
-        cd ${{ github.action_path }} && go run main.go -prs ${{ inputs.prs}} -to ${{ inputs.to }} -branch-prefix ${{ inputs.branch_prefix }} -title-prefix "${{ inputs.title_prefix }}" -body "${{ inputs.body_tmpl }}" -dry-run ${{ inputs.dry_run }} -workdir "$workdir"
+        cd ${{ github.action_path }} && go run main.go -prs ${{ inputs.prs}} -to ${{ inputs.to }} -branch-prefix ${{ inputs.branch_prefix }} -title-prefix "${{ inputs.title_prefix }}" -body "${{ inputs.body_tmpl }}" -dry-run ${{ inputs.dry_run }} -workdir test
 
       shell: bash
       env:
