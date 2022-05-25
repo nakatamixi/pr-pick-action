@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
 	"strings"
 	"text/template"
@@ -28,6 +29,7 @@ var (
 	branchPrefix  = flag.String("branch-prefix", "pick-", "branch name prefix for created PR")
 	prTitlePrefix = flag.String("title-prefix", "[pick]", "title prefix for created PR")
 	bodyTmpl      = flag.String("body", "This PR is picking {{ .PRs }} to {{ .Branch }} branch.", "body template by go text/template. you can use .PRs, .Branch variable.")
+	workDir       = flag.String("workdir", "", "working directory")
 )
 
 func main() {
@@ -37,6 +39,11 @@ func main() {
 	}
 	if *toBranch == "" {
 		log.Fatal("need -to")
+	}
+	if *workDir != "" {
+		if err := os.Chdir(*workDir); err != nil {
+			log.Fatal(err)
+		}
 	}
 	prNums := strings.Split(*iprs, ",")
 
