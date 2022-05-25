@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"golang.org/x/xerrors"
+)
 
 func main() {
-	fmt.Println("hello")
+	fmt.Println(xerrors.New("test"))
 }
