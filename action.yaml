@@ -41,3 +41,5 @@ runs:
         cd ${{ github.action_path }} && go run main.go -prs ${{ inputs.prs}} -to ${{ inputs.to }} -branch-prefix ${{ inputs.branch_prefix }} -title-prefix ${{ inputs.title_prefix }} -body ${{ inputs.body_tmpl }} -dry-run ${{ inputs.dry_run }}
 
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
