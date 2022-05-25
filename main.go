@@ -40,9 +40,6 @@ func main() {
 	if *toBranch == "" {
 		log.Fatal("need -to")
 	}
-	fmt.Println(*workDir)
-	fmt.Println(*bodyTmpl)
-	fmt.Println(*dryRun)
 	if *workDir != "" {
 		if err := os.Chdir(*workDir); err != nil {
 			log.Fatal(err)
