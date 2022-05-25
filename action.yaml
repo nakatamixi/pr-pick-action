@@ -36,8 +36,8 @@ runs:
       with:
         go-version: '~1.18'
     - run: |
-      git remote -v
-      git fetch origin
+        git remote -v
+        git fetch origin
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
