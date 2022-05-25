@@ -92,7 +92,7 @@ func main() {
 		printOrExec(fmt.Sprintf("git cherry-pick -m 1 %s", pr.MergeCommit), *dryRun)
 	}
 	printOrExec(fmt.Sprintf("git push origin %s", newBranch), *dryRun)
-	printOrExec(fmt.Sprintf("gh pr create -B %s --title %s --body %s", *toBranch, title, b.String()), *dryRun)
+	printOrExec(fmt.Sprintf("gh pr create -B %s --title %s --body \"%s\"", *toBranch, title, b.String()), *dryRun)
 
 }
 
