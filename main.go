@@ -41,6 +41,7 @@ func main() {
 		log.Fatal("need -to")
 	}
 	fmt.Println(*workDir)
+	fmt.Println(*bodyTmpl)
 	if *workDir != "" {
 		if err := os.Chdir(*workDir); err != nil {
 			log.Fatal(err)
