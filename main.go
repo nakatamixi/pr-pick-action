@@ -25,6 +25,7 @@ type tmplVar struct {
 var (
 	dryRun        = flag.Bool("dry-run", false, "dry run")
 	iprs          = flag.String("prs", "", "comma separated pr numbers")
+	baseBranch    = flag.String("base", "main", "base branch name that you want to search merge commits")
 	toBranch      = flag.String("to", "", "to branch name that you want to pick PRs")
 	branchPrefix  = flag.String("branch-prefix", "pick-", "branch name prefix for created PR")
 	prTitlePrefix = flag.String("title-prefix", "[pick]", "title prefix for created PR")
@@ -39,6 +40,9 @@ func main() {
 	}
 	if *toBranch == "" {
 		log.Fatal("need -to")
+	}
+	if *baseBranch == "" {
+		log.Fatal("need -base")
 	}
 	if *workDir != "" {
 		if err := os.Chdir(*workDir); err != nil {
@@ -56,10 +60,13 @@ func main() {
 	if err := exec.Command("git", "fetch", "origin").Run(); err != nil {
 		log.Fatalf("git fetch origin failed: %v", err)
 	}
+	if err := exec.Command("git", "checkout", *baseBranch).Run(); err != nil {
+		log.Fatalf("git checkout failed: %v", err)
+	}
 
 	prs, err := getPRs(prNums)
 	if err != nil {
-		log.Fatalf("cant get PRs from main commit log :%v", err)
+		log.Fatalf("cant get PRs from git log :%v", err)
 	}
 
 	var (
