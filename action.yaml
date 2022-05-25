@@ -1,5 +1,32 @@
-name: test
-description: 'test'
+name: PR Picker
+description: 'pick PR to another branch with pick PR'
+inputs:
+  token:
+    description: 'A Github PAT'
+    required: true
+  prs:
+    required: true
+    description: "comma separated PR numbers. should be sorted the order you want to merge."
+  to:
+    required: true
+    description: "to branch name that you want to pick PRs."
+  branch_prefix:
+    required: false
+    description: "branch name prefix for created PR."
+    default: "pick-"
+  title_prefix:
+    required: false
+    description: "title prefix for created PR."
+    default: "[pick]"
+  body_tmpl:
+    required: false
+    description: "body template by go text/template. you can use .PRs, .Branch variable."
+    default: "This PR is picking {{ .PRs }} to {{ .Branch }} branch."
+  dry_run:
+    type: boolean
+    required: false
+    description: "if true, do not execute git operation, just print commands."
+    default: false
 
 runs:
   using: "composite"
@@ -9,5 +36,8 @@ runs:
       with:
         go-version: '~1.18'
     - run: |
-        cd ${{ github.action_path }} && go run main.go
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        cd ${{ github.action_path }} && go run main.go -prs ${{ inputs.prs}} -to ${{ inputs.to }} -branch-prefix ${{ inputs.branch_prefix }} -title-prefix ${{ inputs.title_prefix }} -body ${{ inputs.body_tmpl }} -dry-run ${{ inputs.dry_run }}
+
       shell: bash
