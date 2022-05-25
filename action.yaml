@@ -45,8 +45,7 @@ runs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         workdir=`pwd`
-        echo "$workdir"
-        echo ${{ inputs.dry_run }}
+        cd ${{ github.action_path }} && echo "$workdir"
         cd ${{ github.action_path }} && go run main.go -prs ${{ inputs.prs}} -to ${{ inputs.to }} -branch-prefix ${{ inputs.branch_prefix }} -title-prefix "${{ inputs.title_prefix }}" -body "${{ inputs.body_tmpl }}" -dry-run ${{ inputs.dry_run }} -workdir "$workdir"
 
       shell: bash
