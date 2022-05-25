@@ -82,12 +82,12 @@ func main() {
 	}
 	s.Branch = *toBranch
 	if len(prNums) == 1 {
-		newBranch = fmt.Sprintf("%s%s", *branchPrefix, prNums[0])
-		title = fmt.Sprintf("\"%s #%s\"", *prTitlePrefix, prNums[0])
+		newBranch = fmt.Sprintf("%s%s-%s", *branchPrefix, *toBranch, prNums[0])
+		title = fmt.Sprintf("\"%s #%s to %s\"", *prTitlePrefix, prNums[0], *toBranch)
 		s.PRs = fmt.Sprintf("#%s", prNums[0])
 	} else {
-		newBranch = fmt.Sprintf("%s%s-to-%s", *branchPrefix, prNums[0], prNums[len(prNums)-1])
-		title = fmt.Sprintf("\"%s %s\"", *prTitlePrefix, strings.Join(hashed(prNums), ", "))
+		newBranch = fmt.Sprintf("%s%s-%s-to-%s", *branchPrefix, *toBranch, prNums[0], prNums[len(prNums)-1])
+		title = fmt.Sprintf("\"%s %s to %s\"", *prTitlePrefix, strings.Join(hashed(prNums), ", "), *toBranch)
 		s.PRs = strings.Join(hashed(prNums), ", ")
 	}
 	if err = t.Execute(&b, s); err != nil {
