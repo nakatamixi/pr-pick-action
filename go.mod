@@ -1,4 +1,4 @@
-module github.com/nakatamixi/test-action
+module github.com/nktks/test-action
 
 go 1.18
 

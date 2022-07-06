@@ -6,7 +6,7 @@ this action helps to create merge PR.
 
 ## Inputs
 
-see https://github.com/nakatamixi/pr-pick-action/blob/main/action.yaml
+see https://github.com/nktks/pr-pick-action/blob/main/action.yaml
 
 ## Usage
 
@@ -34,7 +34,7 @@ jobs:
         with:
           fetch-depth: 0
       - id: foo
-        uses: nakatamixi/pr-pick-action@v1
+        uses: nktks/pr-pick-action@v1
         with:
           to: ${{github.event.inputs.to}}
           base: ${{github.event.inputs.base}}
